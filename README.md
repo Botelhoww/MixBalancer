@@ -75,6 +75,7 @@ O **MixBalancer** é uma aplicação web projetada para facilitar a organizaçã
 
 ### **Estrutura do Front-end**
 mixbalancer-frontend/
+```
 ├── src/
 │   ├── app/
 │   │   ├── (auth)/
@@ -112,6 +113,7 @@ mixbalancer-frontend/
 │   └── globals.css
 ├── next.config.js
 └── package.json
+```
 
 ### **Integração com ShadCN UI**
 - Componentes usados:
