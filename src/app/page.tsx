@@ -6,13 +6,14 @@ import {
   CardHeader, 
   CardTitle 
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { 
-  Carousel, 
-  CarouselContent, 
-  CarouselItem, 
-  CarouselNext, 
-  CarouselPrevious 
-} from "@/components/ui/carousel";
+  NavigationMenu, 
+  NavigationMenuContent, 
+  NavigationMenuItem, 
+  NavigationMenuList, 
+  NavigationMenuTrigger 
+} from "@/components/ui/navigation-menu";
 import { 
   Dialog, 
   DialogContent, 
@@ -21,164 +22,94 @@ import {
   DialogTitle, 
   DialogTrigger 
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { 
-  Accordion, 
-  AccordionContent, 
-  AccordionItem, 
-  AccordionTrigger 
-} from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { 
-  NavigationMenu, 
-  NavigationMenuContent, 
-  NavigationMenuItem, 
-  NavigationMenuLink, 
-  NavigationMenuList, 
-  NavigationMenuTrigger 
-} from "@/components/ui/navigation-menu";
-import { 
-  Tabs, 
-  TabsContent, 
-  TabsList, 
-  TabsTrigger 
-} from "@/components/ui/tabs";
-import { 
-  AlertDialog, 
-  AlertDialogAction, 
-  AlertDialogCancel, 
-  AlertDialogContent, 
-  AlertDialogDescription, 
-  AlertDialogFooter, 
-  AlertDialogHeader, 
-  AlertDialogTitle, 
-  AlertDialogTrigger 
-} from "@/components/ui/alert-dialog";
-import { 
-  HoverCard, 
-  HoverCardContent, 
-  HoverCardTrigger 
-} from "@/components/ui/hover-card";
-import { 
-  Tooltip, 
-  TooltipContent, 
-  TooltipProvider, 
-  TooltipTrigger 
-} from "@/components/ui/tooltip";
-import { 
-  RocketIcon, 
-  InfoCircledIcon, 
-  CheckCircledIcon,
-  StarFilledIcon, 
-  IconJarLogoIcon
-} from "@radix-ui/react-icons";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import { 
+  UsersIcon, 
+  TrophyIcon, 
+  ChartBarIcon, 
+  ShieldCheckIcon 
+} from "lucide-react";
 
 export default function Home() {
-  // Paleta de cores personalizada
+  // Paleta de cores inspirada em CS2
   const colorPalette = {
-    primary: "#3B82F6",      // Azul vibrante
-    secondary: "#10B981",    // Verde esmeralda
-    accent: "#8B5CF6",       // Roxo profundo
-    background: "#F9FAFB",   // Cinza claro
-    text: "#1F2937",         // Cinza escuro
+    primary: "#1E40AF",      // Azul escuro para contraste
+    secondary: "#10B981",    // Verde para destacar
+    background: "#0F172A",   // Fundo escuro como mapas de CS2
+    text: "#E2E8F0",         // Texto claro para contraste
+    accent: "#F59E0B"        // Amarelo dourado para destaques
   };
 
   return (
     <div 
-      className="min-h-screen bg-background text-text"
+      className="min-h-screen bg-cover bg-center"
       style={{
         backgroundColor: colorPalette.background,
+        backgroundImage: "linear-gradient(to bottom, rgba(15,23,42,0.9), rgba(15,23,42,0.9)), url('/api/placeholder/1920/1080?text=CS2+Dust2+Background')",
         color: colorPalette.text
       }}
     >
-      {/* Navegação Moderna */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
+      {/* Navegação */}
+      <nav className="sticky top-0 z-50 bg-black/50 backdrop-blur-md">
         <div className="container mx-auto flex justify-between items-center py-4">
           <div className="flex items-center space-x-4">
-            <IconJarLogoIcon
-              className="w-8 h-8" 
-              color={colorPalette.primary} 
+            <img 
+              src="/mixbalancer.png" 
+              alt="MixBalancer Logo" 
+              className="w-10 h-10 rounded-full"
             />
-            <h2 className="text-2xl font-bold">SuaPlataforma</h2>
+            <h2 className="text-2xl font-bold text-white">MixBalancer</h2>
           </div>
           
-          <NavigationMenu>
-            <NavigationMenuList className="space-x-4">
-              <NavigationMenuItem>
-                <NavigationMenuTrigger 
-                  style={{color: colorPalette.primary}}
-                >
-                  Produtos
-                </NavigationMenuTrigger>
-                <NavigationMenuContent 
-                  className="bg-white shadow-xl rounded-lg p-4"
-                >
-                  <ul className="grid gap-3 md:w-[400px]">
-                    {["Produto 1", "Produto 2", "Produto 3"].map((produto, index) => (
-                      <li 
-                        key={index} 
-                        className="hover:bg-gray-100 p-2 rounded transition-colors"
-                      >
-                        {produto}
-                      </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+          <div className="flex items-center space-x-4">
+            <Button variant="outline" className="text-white border-white/30 hover:bg-white/10">
+              Login
+            </Button>
+            <Button 
+              style={{
+                backgroundColor: colorPalette.secondary,
+                color: 'white'
+              }}
+            >
+              Cadastrar
+            </Button>
+          </div>
         </div>
       </nav>
 
-      {/* Hero Section Aprimorada */}
+      {/* Hero Section */}
       <header className="container mx-auto py-16 text-center">
         <div className="max-w-3xl mx-auto">
           <h1 
             className="text-5xl font-extrabold mb-6"
             style={{color: colorPalette.text}}
           >
-            Transforme Sua Ideia em Realidade
+            Organize Mixes de CS2 Perfeitos
           </h1>
           <p 
-            className="text-xl mb-8 text-gray-600"
-            style={{color: `${colorPalette.text}90`}}
+            className="text-xl mb-8 text-gray-300"
           >
-            Soluções inovadoras para impulsionar seu negócio com tecnologia de ponta
+            Equilibre times, gerencie jogadores e crie as melhores partidas com o MixBalancer
           </p>
           
           <div className="flex justify-center space-x-4">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button 
-                    style={{
-                      backgroundColor: colorPalette.primary,
-                      color: 'white'
-                    }}
-                  >
-                    Comece Agora
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  Inicie sua jornada de transformação
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="outline">
-                  Saiba Mais
+                <Button 
+                  size="lg"
+                  style={{
+                    backgroundColor: colorPalette.accent,
+                    color: 'black'
+                  }}
+                >
+                  Começar Agora
                 </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Sobre Nossa Plataforma</DialogTitle>
+                  <DialogTitle>Bem-vindo ao MixBalancer</DialogTitle>
                   <DialogDescription>
-                    Conectamos tecnologia e inovação para resolver desafios reais
+                    Crie sua conta e comece a organizar mixes incríveis de CS2
                   </DialogDescription>
                 </DialogHeader>
               </DialogContent>
@@ -188,101 +119,125 @@ export default function Home() {
       </header>
 
       <Separator 
+        className="my-12 opacity-20" 
         style={{
-          backgroundColor: `${colorPalette.primary}50`
+          backgroundColor: colorPalette.text
         }} 
       />
 
-      {/* Seção de Destaques com Carrossel */}
+      {/* Funcionalidades */}
       <section className="container mx-auto py-16">
-        <Carousel className="w-full max-w-4xl mx-auto">
-          <CarouselContent>
-            {[
-              { title: "Solução Inteligente", description: "Tecnologia que entende suas necessidades" },
-              { title: "Suporte Especializado", description: "Equipe dedicada 24/7" },
-              { title: "Escalabilidade", description: "Cresca sem limites" }
-            ].map((item, index) => (
-              <CarouselItem key={index}>
-                <Card 
-                  className="hover:shadow-xl transition-all duration-300"
-                  style={{
-                    borderColor: colorPalette.secondary,
-                    backgroundColor: 'white'
-                  }}
-                >
-                  <CardHeader>
-                    <CardTitle 
-                      style={{color: colorPalette.accent}}
-                    >
-                      {item.title}
-                    </CardTitle>
-                    <CardDescription>{item.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Badge 
-                      style={{
-                        backgroundColor: colorPalette.secondary,
-                        color: 'white'
-                      }}
-                    >
-                      Destaque
-                    </Badge>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </section>
-
-      {/* Seção de Depoimentos */}
-      <section className="container mx-auto py-16 bg-gray-50">
-        <div className="text-center mb-12">
-          <h2 
-            className="text-4xl font-bold"
-            style={{color: colorPalette.text}}
-          >
-            O Que Nossos Clientes Dizem
-          </h2>
-        </div>
-        
         <div className="grid md:grid-cols-3 gap-8">
           {[
-            { name: "Ana Silva", role: "CEO, Empresa X", text: "Revolucionou nossa abordagem" },
-            { name: "Carlos Oliveira", role: "CTO, Startup Y", text: "Solução elegante e eficiente" },
-            { name: "Marina Santos", role: "Gerente, Corporação Z", text: "Suporte excepcional" }
-          ].map((testimonial, index) => (
+            { 
+              icon: <UsersIcon className="w-12 h-12" />, 
+              title: "Gerencie Jogadores", 
+              description: "Adicione e acompanhe os níveis de habilidade dos seus jogadores"
+            },
+            { 
+              icon: <TrophyIcon className="w-12 h-12" />, 
+              title: "Crie Times", 
+              description: "Monte times equilibrados com base no skill dos jogadores"
+            },
+            { 
+              icon: <ChartBarIcon className="w-12 h-12" />, 
+              title: "Acompanhe Estatísticas", 
+              description: "Visualize o desempenho dos jogadores e times"
+            }
+          ].map((feature, index) => (
             <Card 
               key={index} 
-              className="text-center p-6 hover:shadow-lg transition-all"
+              className="bg-black/30 border-white/10 text-center p-6 hover:shadow-xl transition-all"
+              style={{
+                borderColor: colorPalette.primary,
+                color: colorPalette.text
+              }}
             >
-              <CardContent>
-                <Avatar className="mx-auto mb-4">
-                  <AvatarImage src={`/api/placeholder/100/100?text=${testimonial.name.split(' ')[0]}`} />
-                  <AvatarFallback>{testimonial.name[0]}</AvatarFallback>
-                </Avatar>
-                <p className="italic mb-4">"{testimonial.text}"</p>
-                <div>
-                  <h4 className="font-semibold">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-500">{testimonial.role}</p>
+              <CardContent className="flex flex-col items-center">
+                <div 
+                  className="mb-4 text-white"
+                  style={{color: colorPalette.accent}}
+                >
+                  {feature.icon}
                 </div>
+                <h3 
+                  className="text-xl font-bold mb-2"
+                  style={{color: colorPalette.text}}
+                >
+                  {feature.title}
+                </h3>
+                <p className="text-gray-400">{feature.description}</p>
               </CardContent>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Rodapé Simples */}
+      {/* Como Funciona */}
+      <section className="container mx-auto py-16 bg-black/20">
+        <div className="text-center mb-12">
+          <h2 
+            className="text-4xl font-bold"
+            style={{color: colorPalette.text}}
+          >
+            Como o MixBalancer Funciona
+          </h2>
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-8">
+          {[
+            { 
+              title: "Balanceamento Automático", 
+              description: "Nosso algoritmo divide os times garantindo equilíbrio baseado no skill dos jogadores",
+              icon: <ShieldCheckIcon className="w-12 h-12" />
+            },
+            { 
+              title: "Gerenciamento Simples", 
+              description: "Adicione jogadores, crie times e organize mixes em poucos cliques",
+              icon: <UsersIcon className="w-12 h-12" />
+            }
+          ].map((step, index) => (
+            <Card 
+              key={index} 
+              className="bg-black/30 border-white/10 text-center p-8"
+              style={{
+                borderColor: colorPalette.primary,
+                color: colorPalette.text
+              }}
+            >
+              <CardContent className="flex flex-col items-center">
+                <div 
+                  className="mb-4"
+                  style={{color: colorPalette.accent}}
+                >
+                  {step.icon}
+                </div>
+                <h3 
+                  className="text-2xl font-bold mb-4"
+                  style={{color: colorPalette.text}}
+                >
+                  {step.title}
+                </h3>
+                <p className="text-gray-400">{step.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Rodapé */}
       <footer 
         className="container mx-auto py-8 text-center"
         style={{
-          backgroundColor: `${colorPalette.primary}10`,
+          backgroundColor: 'black',
           color: colorPalette.text
         }}
       >
-        <p>© 2024 SuaPlataforma. Todos os direitos reservados.</p>
+        <p>© 2024 MixBalancer. Todos os direitos reservados.</p>
+        <div className="mt-4 space-x-4">
+          <a href="#" className="hover:text-white/70">Termos de Uso</a>
+          <a href="#" className="hover:text-white/70">Política de Privacidade</a>
+        </div>
       </footer>
     </div>
   );
