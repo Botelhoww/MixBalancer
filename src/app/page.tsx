@@ -1,19 +1,9 @@
 import React from 'react';
 import { 
   Card, 
-  CardContent, 
-  CardDescription, 
-  CardHeader, 
-  CardTitle 
+  CardContent
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  NavigationMenu, 
-  NavigationMenuContent, 
-  NavigationMenuItem, 
-  NavigationMenuList, 
-  NavigationMenuTrigger 
-} from "@/components/ui/navigation-menu";
 import { 
   Dialog, 
   DialogContent, 
@@ -30,27 +20,26 @@ import {
   ShieldCheckIcon 
 } from "lucide-react";
 
-export default function Home() {
-  // Paleta de cores inspirada em CS2
+export default function MixBalancerLandingPage() {
   const colorPalette = {
-    primary: "#1E40AF",      // Azul escuro para contraste
-    secondary: "#10B981",    // Verde para destacar
-    background: "#0F172A",   // Fundo escuro como mapas de CS2
-    text: "#E2E8F0",         // Texto claro para contraste
-    accent: "#F59E0B"        // Amarelo dourado para destaques
+    primary: "#1D3557",      // Azul profundo
+    secondary: "#457B9D",    // Azul claro
+    background: "#F1FAEE",   // Off-white
+    text: "#1D3557",         // Azul profundo
+    accent: "#E63946"        // Vermelho carmim
   };
-
+  
   return (
     <div 
       className="min-h-screen bg-cover bg-center"
       style={{
         backgroundColor: colorPalette.background,
-        backgroundImage: "linear-gradient(to bottom, rgba(15,23,42,0.9), rgba(15,23,42,0.9)), url('/api/placeholder/1920/1080?text=CS2+Dust2+Background')",
+        backgroundImage: "linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('/api/placeholder/1920/1080?text=CS2+Dust2+Background')",
         color: colorPalette.text
       }}
     >
       {/* Navegação */}
-      <nav className="sticky top-0 z-50 bg-black/50 backdrop-blur-md">
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
         <div className="container mx-auto flex justify-between items-center py-4">
           <div className="flex items-center space-x-4">
             <img 
@@ -58,16 +47,16 @@ export default function Home() {
               alt="MixBalancer Logo" 
               className="w-10 h-10 rounded-full"
             />
-            <h2 className="text-2xl font-bold text-white">MixBalancer</h2>
+            <h2 className="text-2xl font-bold text-gray-800">MixBalancer</h2>
           </div>
           
           <div className="flex items-center space-x-4">
-            <Button variant="outline" className="text-white border-white/30 hover:bg-white/10">
+            <Button variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-100">
               Login
             </Button>
             <Button 
               style={{
-                backgroundColor: colorPalette.secondary,
+                backgroundColor: colorPalette.primary,
                 color: 'white'
               }}
             >
@@ -87,7 +76,7 @@ export default function Home() {
             Organize Mixes de CS2 Perfeitos
           </h1>
           <p 
-            className="text-xl mb-8 text-gray-300"
+            className="text-xl mb-8 text-gray-600"
           >
             Equilibre times, gerencie jogadores e crie as melhores partidas com o MixBalancer
           </p>
@@ -98,8 +87,8 @@ export default function Home() {
                 <Button 
                   size="lg"
                   style={{
-                    backgroundColor: colorPalette.accent,
-                    color: 'black'
+                    backgroundColor: colorPalette.secondary,
+                    color: 'white'
                   }}
                 >
                   Começar Agora
@@ -119,7 +108,7 @@ export default function Home() {
       </header>
 
       <Separator 
-        className="my-12 opacity-20" 
+        className="my-12 opacity-30" 
         style={{
           backgroundColor: colorPalette.text
         }} 
@@ -147,26 +136,20 @@ export default function Home() {
           ].map((feature, index) => (
             <Card 
               key={index} 
-              className="bg-black/30 border-white/10 text-center p-6 hover:shadow-xl transition-all"
-              style={{
-                borderColor: colorPalette.primary,
-                color: colorPalette.text
-              }}
+              className="bg-white border-gray-200 text-center p-6 hover:shadow-lg transition-all"
             >
               <CardContent className="flex flex-col items-center">
                 <div 
-                  className="mb-4 text-white"
-                  style={{color: colorPalette.accent}}
+                  className="mb-4 text-blue-600"
                 >
                   {feature.icon}
                 </div>
                 <h3 
                   className="text-xl font-bold mb-2"
-                  style={{color: colorPalette.text}}
                 >
                   {feature.title}
                 </h3>
-                <p className="text-gray-400">{feature.description}</p>
+                <p className="text-gray-600">{feature.description}</p>
               </CardContent>
             </Card>
           ))}
@@ -174,11 +157,10 @@ export default function Home() {
       </section>
 
       {/* Como Funciona */}
-      <section className="container mx-auto py-16 bg-black/20">
+      <section className="container mx-auto py-16 bg-gray-50">
         <div className="text-center mb-12">
           <h2 
             className="text-4xl font-bold"
-            style={{color: colorPalette.text}}
           >
             Como o MixBalancer Funciona
           </h2>
@@ -199,26 +181,20 @@ export default function Home() {
           ].map((step, index) => (
             <Card 
               key={index} 
-              className="bg-black/30 border-white/10 text-center p-8"
-              style={{
-                borderColor: colorPalette.primary,
-                color: colorPalette.text
-              }}
+              className="bg-white border-gray-200 text-center p-8"
             >
               <CardContent className="flex flex-col items-center">
                 <div 
-                  className="mb-4"
-                  style={{color: colorPalette.accent}}
+                  className="mb-4 text-green-600"
                 >
                   {step.icon}
                 </div>
                 <h3 
                   className="text-2xl font-bold mb-4"
-                  style={{color: colorPalette.text}}
                 >
                   {step.title}
                 </h3>
-                <p className="text-gray-400">{step.description}</p>
+                <p className="text-gray-600">{step.description}</p>
               </CardContent>
             </Card>
           ))}
@@ -227,16 +203,12 @@ export default function Home() {
 
       {/* Rodapé */}
       <footer 
-        className="container mx-auto py-8 text-center"
-        style={{
-          backgroundColor: 'black',
-          color: colorPalette.text
-        }}
+        className="container mx-auto py-8 text-center bg-white border-t border-gray-200"
       >
-        <p>© 2024 MixBalancer. Todos os direitos reservados.</p>
+        <p className="text-gray-600">© 2024 MixBalancer. Todos os direitos reservados.</p>
         <div className="mt-4 space-x-4">
-          <a href="#" className="hover:text-white/70">Termos de Uso</a>
-          <a href="#" className="hover:text-white/70">Política de Privacidade</a>
+          <a href="#" className="text-gray-700 hover:text-blue-600">Termos de Uso</a>
+          <a href="#" className="text-gray-700 hover:text-blue-600">Política de Privacidade</a>
         </div>
       </footer>
     </div>
