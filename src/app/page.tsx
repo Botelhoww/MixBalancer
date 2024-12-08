@@ -125,7 +125,7 @@ export default function MixBalancerLandingPage() {
           <p 
             className="text-xl mb-8 text-gray-600"
           >
-            Equilibre times, gerencie jogadores e crie as melhores partidas com o MixBalancer
+            Crie times equilibrados, gerencie jogadores e torne suas partidas ainda mais competitivas.
           </p>
           
           <div className="flex justify-center space-x-4">
@@ -168,17 +168,17 @@ export default function MixBalancerLandingPage() {
             { 
               icon: <UsersIcon className="w-12 h-12" />, 
               title: "Gerencie Jogadores", 
-              description: "Adicione e acompanhe os níveis de habilidade dos seus jogadores"
+              description: "Organize seu elenco com facilidade, acompanhando níveis de habilidade e desempenho."
             },
             { 
               icon: <TrophyIcon className="w-12 h-12" />, 
-              title: "Crie Times", 
-              description: "Monte times equilibrados com base no skill dos jogadores"
+              title: "Crie Times Perfeitos", 
+              description: "Utilize nosso balanceamento inteligente para formar times competitivos em segundos."
             },
             { 
               icon: <ChartBarIcon className="w-12 h-12" />, 
-              title: "Acompanhe Estatísticas", 
-              description: "Visualize o desempenho dos jogadores e times"
+              title: "Estatísticas Poderosas", 
+              description: "Monitore o desempenho dos jogadores e dos times com gráficos detalhados."
             }
           ].map((feature, index) => (
             <Card 
@@ -216,13 +216,13 @@ export default function MixBalancerLandingPage() {
         <div className="grid md:grid-cols-2 gap-8">
           {[
             { 
-              title: "Balanceamento Automático", 
-              description: "Nosso algoritmo divide os times garantindo equilíbrio baseado no skill dos jogadores",
+              title: "Balanceamento Inteligente", 
+              description: "Nosso sistema utiliza dados de habilidade para criar partidas equilibradas automaticamente.",
               icon: <ShieldCheckIcon className="w-12 h-12" />
             },
             { 
-              title: "Gerenciamento Simples", 
-              description: "Adicione jogadores, crie times e organize mixes em poucos cliques",
+              title: "Organização Simplificada", 
+              description: "Adicione jogadores, monte times e inicie suas partidas com apenas alguns cliques.",
               icon: <UsersIcon className="w-12 h-12" />
             }
           ].map((step, index) => (
@@ -276,9 +276,9 @@ export default function MixBalancerLandingPage() {
         </div>
         <div className="space-y-4">
           {[
-            { question: "Como posso criar uma conta?", answer: "Você pode criar uma conta clicando no botão 'Cadastrar' na parte superior." },
-            { question: "O MixBalancer é gratuito?", answer: "Sim, o MixBalancer é gratuito para uso básico." },
-            { question: "Posso adicionar amigos?", answer: "Sim, você pode adicionar amigos e gerenciar suas partidas juntos." }
+            { question: "Como começo a usar o MixBalancer?", answer: "Clique em 'Cadastrar' para criar sua conta gratuitamente e começar a organizar partidas." },
+            { question: "O MixBalancer oferece funcionalidades gratuitas?", answer: "Sim, funcionalidades básicas são totalmente gratuitas. Planos premium estão disponíveis para recursos avançados." },
+            { question: "Posso gerenciar times com meus amigos?", answer: "Claro! Adicione amigos, organize jogadores e crie times para partidas inesquecíveis." }
           ].map((faq, index) => (
             <div key={index} className="bg-gray-50 p-4 border border-gray-200 rounded">
               <h4 className="font-bold">{faq.question}</h4>
@@ -292,7 +292,7 @@ export default function MixBalancerLandingPage() {
       <footer 
         className="container mx-auto py-8 text-center bg-white border-t border-gray-200"
       >
-        <p className="text-gray-600">© 2024 MixBalancer. Todos os direitos reservados.</p>
+        <p className="text-gray-600">© 2024 MixBalancer. Sua plataforma de organização de partidas de CS2.</p>
         <div className="mt-4 space-x-4">
           <a href="#" className="text-gray-700 hover:text-blue-600">Termos de Uso</a>
           <a href="#" className="text-gray-700 hover:text-blue-600">Política de Privacidade</a>

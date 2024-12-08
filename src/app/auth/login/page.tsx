@@ -11,7 +11,6 @@ import { Separator } from '@/components/ui/separator';
 import { authService } from '@/services/authService';
 import { useAuth } from '@/context/AuthContext';
 import { AlertCircle, Eye, EyeOff, Lock, Mail } from 'lucide-react';
-import Link from 'next/link';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -38,8 +37,8 @@ const LoginPage: React.FC = () => {
       }
 
       // Validate password length
-      if (password.length < 6) {
-        setError('A senha deve ter pelo menos 6 caracteres.');
+      if (password.length < 8) {
+        setError('A senha deve ter pelo menos 8 caracteres.');
         setIsLoading(false);
         return;
       }
