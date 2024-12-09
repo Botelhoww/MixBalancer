@@ -81,38 +81,6 @@ export default function MixBalancerLandingPage() {
         color: colorPalette.text
       }}
     >
-      {/* Navegação */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
-        <div className="container mx-auto flex justify-between items-center py-4">
-          <div className="flex items-center space-x-4">
-            <img 
-              src="/mixbalancer.png" 
-              alt="MixBalancer Logo" 
-              className="w-10 h-10 rounded-full"
-            />
-            <Link href="/">
-              <h2 className="text-2xl font-bold text-gray-800">MixBalancer</h2>
-            </Link>          
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            <a href="/auth/login">
-              <Button variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-100">
-                Login
-              </Button>
-            </a>
-            <Button 
-              style={{
-                backgroundColor: colorPalette.primary,
-                color: 'white'
-              }}
-            >
-              Cadastrar
-            </Button>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <header className="container mx-auto py-16 text-center">
         <div className="max-w-3xl mx-auto">
