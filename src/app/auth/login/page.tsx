@@ -26,7 +26,7 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
-
+  
     try {
       // Validate email format
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,18 +35,18 @@ const LoginPage: React.FC = () => {
         setIsLoading(false);
         return;
       }
-
+  
       // Validate password length
       if (password.length < 8) {
         setError('A senha deve ter pelo menos 8 caracteres.');
         setIsLoading(false);
         return;
       }
-
+  
       const result = await authService.login({ email, password });
-      
+  
       if (result.success) {
-        login(result.token, null);
+        await login(result.token); // Note the change here
         router.push('/players');
       } else {
         setError(result.message || 'Falha no login. Verifique suas credenciais.');

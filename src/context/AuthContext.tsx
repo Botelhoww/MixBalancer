@@ -1,27 +1,47 @@
 'use client';
 
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { authService } from '@/services/authService'; // We'll modify this service
 
-// Definir os tipos
+// Define a more specific User interface
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  // Add any other user properties you want to store
+}
+
 interface AuthContextProps {
-  user: any;
+  user: User | null;
   token: string | null;
-  login: (token: string, user: any) => void;
+  login: (token: string) => Promise<void>;
   logout: () => void;
 }
 
-// Criar o contexto
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<any>(null);
-  const [token, setToken] = useState<string | null>(
-    () => localStorage.getItem('token') || null // Recupera o token armazenado
-  );
-  const login = (newToken: string, newUser: any) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+
+  const login = async (newToken: string) => {
+    // Store the token
     setToken(newToken);
-    setUser(newUser);
     localStorage.setItem('token', newToken);
+
+    try {
+      // Fetch user details using the token
+      const userData = await authService.getCurrentUser();
+      if (userData.success) {
+        setUser(userData.user);
+      } else {
+        // Handle error in fetching user data
+        logout();
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      logout();
+    }
   };
 
   const logout = () => {
@@ -33,8 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
-      setToken(storedToken);
-      // Opcional: Faça uma chamada para validar o token ou buscar o usuário atual
+      login(storedToken).catch(console.error);
     }
   }, []);
 
@@ -45,7 +64,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// Hook para acessar o contexto
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
