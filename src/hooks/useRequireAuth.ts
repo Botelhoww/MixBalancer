@@ -1,16 +1,17 @@
+// src/hooks/useRequireAuth.ts
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export const useRequireAuth = () => {
-  const { token } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!token) {
-      router.push('/auth/login'); // Redireciona para login
+    if (!loading && !isAuthenticated) {
+      router.push('/auth/login');
     }
-  }, [token, router]);
+  }, [isAuthenticated, loading, router]);
 
-  return { isAuthenticated: !!token };
+  return { isAuthenticated };
 };

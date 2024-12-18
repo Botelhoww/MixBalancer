@@ -1,64 +1,76 @@
+// src/context/AuthContext.tsx
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { authService } from '@/services/authService'; // We'll modify this service
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { authService } from '@/services/authService';
+import { useRouter } from 'next/navigation';
 
-// Define a more specific User interface
 interface User {
   id: string;
   name: string;
   email: string;
-  // Add any other user properties you want to store
 }
 
 interface AuthContextProps {
   user: User | null;
+  isAuthenticated: boolean;
   token: string | null;
+  loading: boolean;
   login: (token: string) => Promise<void>;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+  const router = useRouter();
+
+  useEffect(() => {
+    if (token) {
+      authService.getCurrentUser(token)
+        .then(userData => {
+          if (userData) {
+            setUser(userData);
+            setIsAuthenticated(true);
+          } else {
+            throw new Error('Invalid user data');
+          }
+        })
+        .catch(() => {
+          logout();
+        })
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, [token]);
 
   const login = async (newToken: string) => {
-    // Store the token
-    setToken(newToken);
     localStorage.setItem('token', newToken);
-
-    try {
-      // Fetch user details using the token
-      const userData = await authService.getCurrentUser();
-      if (userData.success) {
-        setUser(userData.user);
-      } else {
-        // Handle error in fetching user data
-        logout();
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      logout();
-    }
+    setToken(newToken);
+    const userData = await authService.getCurrentUser(newToken);
+    setUser(userData);
+    setIsAuthenticated(true);
   };
 
   const logout = () => {
-    setToken(null);
-    setUser(null);
-    localStorage.removeItem('token');
+    try {
+      localStorage.removeItem('token');
+      setToken(null);
+      setUser(null);
+      setIsAuthenticated(false);
+      router.push('/auth/login'); // Redireciona
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+    }
   };
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      login(storedToken).catch(console.error);
-    }
-  }, []);
-
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, token, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
@@ -66,7 +78,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;

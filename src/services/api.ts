@@ -1,21 +1,19 @@
+// src/services/api.ts
+import axios from 'axios';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const api = {
-  async request(
-    endpoint: string,
-    method: string = 'GET',
-    data: any = null,
-    token: string | null = localStorage.getItem('token')
-  ) {
-    const headers: HeadersInit = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
+const api = axios.create({
+  baseURL: API_URL,
+});
 
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      method,
-      headers,
-      body: data ? JSON.stringify(data) : null,
-    });
+// Add a request interceptor
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
-    return await response.json();
-  },
-};
+export default api;

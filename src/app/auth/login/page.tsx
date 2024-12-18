@@ -28,26 +28,26 @@ const LoginPage: React.FC = () => {
     setIsLoading(true);
   
     try {
-      // Validate email format
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         setError('Por favor, insira um email válido.');
-        setIsLoading(false);
         return;
       }
   
-      // Validate password length
       if (password.length < 8) {
         setError('A senha deve ter pelo menos 8 caracteres.');
-        setIsLoading(false);
         return;
       }
   
       const result = await authService.login({ email, password });
   
       if (result.success) {
-        await login(result.token); // Note the change here
-        router.push('/players');
+        if (result.token) {
+          await login(result.token);
+          router.push('/players');
+        } else {
+          setError('Token não recebido.');
+        }
       } else {
         setError(result.message || 'Falha no login. Verifique suas credenciais.');
       }

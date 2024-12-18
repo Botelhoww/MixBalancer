@@ -1,15 +1,23 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 // src/services/authService.ts
-import axios from 'axios'; // Assuming you're using axios
+import api from './api';
+
+interface LoginResponse {
+  token: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
 
 export const authService = {
   login: async ({ email, password }: { email: string; password: string }) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, { email, password });
+      const response = await api.post<LoginResponse>('/auth/login', { email, password });
       return {
         success: true,
-        token: response.data.token
+        token: response.data.token,
+        user: response.data.user // Make sure your API returns the user with the login response
       };
     } catch (error: any) {
       return {
@@ -19,16 +27,12 @@ export const authService = {
     }
   },
 
-  getCurrentUser: async () => {
+  getCurrentUser: async (token: string) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get(`${API_URL}/auth/me`, {
+      const response = await api.get('/auth/me', {
         headers: { Authorization: `Bearer ${token}` }
       });
-      return {
-        success: true,
-        user: response.data.user
-      };
+      return response.data.user;
     } catch (error: any) {
       return {
         success: false,
@@ -37,19 +41,19 @@ export const authService = {
     }
   },
 
-  async register(data: { username: string; email: string; password: string }) {
+  register: async (data: { username: string; email: string; password: string }) => {
     try {
-      const response = await fetch(`${API_URL}/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      const result = await response.json();
-      return response.ok
-        ? { success: true }
-        : { success: false, message: result.message };
-    } catch (error) {
-      return { success: false, message: 'An error occurred while registering.' };
+      const response = await api.post<LoginResponse>(`/auth/register`, data);
+      return {
+        success: true,
+        token: response.data.token,
+        user: response.data.user
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'An error occurred while registering.'
+      };
     }
   }
 };

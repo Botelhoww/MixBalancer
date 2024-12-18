@@ -7,17 +7,15 @@ import { playerService } from '@/services/playerService';
 import { useRequireAuth } from '@/hooks/useRequireAuth';
 
 const PlayersPage: React.FC = () => {
-    const [players, setPlayers] = useState([]);
-    const { isAuthenticated } = useRequireAuth();
-
-  if (!isAuthenticated) {
-    console.log("usario NAO aut");
-    return null; // Mostra um estado vazio enquanto redireciona
-  }
-
-  console.log("usario aut");
+  const [players, setPlayers] = useState([]);
+  const { isAuthenticated } = useRequireAuth();
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      // Aguarda redirecionamento antes de renderizar
+      return;
+    }
+
     const fetchPlayers = async () => {
       const result = await playerService.getPlayers();
       if (result.success) {
@@ -25,7 +23,11 @@ const PlayersPage: React.FC = () => {
       }
     };
     fetchPlayers();
-  }, []);
+  }, [isAuthenticated]);
+
+  if (!isAuthenticated) {
+    return null; // Aguarda redirecionamento do `useRequireAuth`
+  }
 
   return (
     <div className="p-6">
@@ -34,7 +36,7 @@ const PlayersPage: React.FC = () => {
         {players.map((player: any) => (
           <Card key={player.id}>
             <CardHeader>
-              <CardTitle>{player.nickname}</CardTitle>
+              <CardTitle>{player.username}</CardTitle>
             </CardHeader>
             <CardContent>
               <p>Skill Level: {player.skillLevel}</p>

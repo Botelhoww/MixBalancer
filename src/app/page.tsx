@@ -26,7 +26,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Link from 'next/link';
 
 export default function MixBalancerLandingPage() {
   const colorPalette = {

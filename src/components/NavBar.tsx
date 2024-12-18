@@ -1,12 +1,13 @@
-"use client";
+// src/components/NavBar.tsx
+'use client';
 
 import React from 'react';
-import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import { Button } from './ui/button';
 
 const NavBar = () => {
-  const { user, logout } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const colorPalette = {
     primary: "#1D3557", // Azul profundo
   };
@@ -24,11 +25,11 @@ const NavBar = () => {
             <h2 className="text-2xl font-bold text-gray-800">MixBalancer</h2>
           </Link>          
         </div>
-        
+
         <div className="flex items-center space-x-4">
-          {user ? ( // Check if user is logged in
+          {isAuthenticated ? (
             <>
-              <span className="text-gray-800">{user.name}</span>
+              <span className="text-gray-800">{user?.name}</span>
               <Button 
                 variant="outline" 
                 className="text-gray-700 border-gray-300 hover:bg-gray-100"
@@ -39,21 +40,21 @@ const NavBar = () => {
             </>
           ) : (
             <>
-              <a href="/auth/login">
+              <Link href="/auth/login">
                 <Button variant="outline" className="text-gray-700 border-gray-300 hover:bg-gray-100">
                   Login
                 </Button>
-              </a>
-              <a href='/auth/register'>
-              <Button 
-                style={{
-                  backgroundColor: colorPalette.primary,
-                  color: 'white'
-                }}
-              >
-                Cadastrar
-              </Button>
-              </a>
+              </Link>
+              <Link href='/auth/register'>
+                <Button 
+                  style={{
+                    backgroundColor: colorPalette.primary,
+                    color: 'white'
+                  }}
+                >
+                  Cadastrar
+                </Button>
+              </Link>
             </>
           )}
         </div>
@@ -62,4 +63,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar; 
+export default NavBar;
