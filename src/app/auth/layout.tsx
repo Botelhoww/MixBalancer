@@ -11,8 +11,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     if (!loading && isAuthenticated) {
-      console.log('Redirecionando para /players');
-      router.replace('/players');
+      router.replace('/perfil');
     }
   }, [isAuthenticated, loading, router]);
 
