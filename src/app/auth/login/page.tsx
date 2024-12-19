@@ -44,7 +44,7 @@ const LoginPage: React.FC = () => {
       if (result.success) {
         if (result.token) {
           await login(result.token);
-          router.push('/players');
+          router.push('/perfil');
         } else {
           setError('Token não recebido.');
         }

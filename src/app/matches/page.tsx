@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { matchService } from '@/services/matchService';
 import { useRequireAuth } from '@/hooks/useRequireAuth';
@@ -10,11 +9,12 @@ const MatchesPage: React.FC = () => {
   const [matches, setMatches] = useState([]);
   const { isAuthenticated } = useRequireAuth();
 
-  if (!isAuthenticated) {
-    return null; // Mostra um estado vazio enquanto redireciona
-  }
-  
   useEffect(() => {
+    if (!isAuthenticated) {
+      // Aguarda redirecionamento antes de renderizar
+      return;
+    }
+
     const fetchMatches = async () => {
       const result = await matchService.getMatches();
       if (result.success) {
@@ -22,7 +22,11 @@ const MatchesPage: React.FC = () => {
       }
     };
     fetchMatches();
-  }, []);
+  }, [isAuthenticated]);
+
+  if (!isAuthenticated) {
+    return null; // Aguarda redirecionamento do `useRequireAuth`
+  }
 
   return (
     <div className="p-6">

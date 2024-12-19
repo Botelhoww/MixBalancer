@@ -29,7 +29,7 @@ const NavBar = () => {
         <div className="flex items-center space-x-4">
           {isAuthenticated ? (
             <>
-              <span className="text-gray-800">{user?.name}</span>
+              <span className="text-gray-800">{user?.username}</span>
               <Button 
                 variant="outline" 
                 className="text-gray-700 border-gray-300 hover:bg-gray-100"

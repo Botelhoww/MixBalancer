@@ -17,7 +17,7 @@ export const authService = {
       return {
         success: true,
         token: response.data.token,
-        user: response.data.user // Make sure your API returns the user with the login response
+        user: response.data.user
       };
     } catch (error: any) {
       return {
@@ -32,6 +32,7 @@ export const authService = {
       const response = await api.get('/auth/me', {
         headers: { Authorization: `Bearer ${token}` }
       });
+
       return response.data.user;
     } catch (error: any) {
       return {

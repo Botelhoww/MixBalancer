@@ -10,11 +10,12 @@ const TeamsPage: React.FC = () => {
   const [teams, setTeams] = useState([]);
   const { isAuthenticated } = useRequireAuth();
 
-  if (!isAuthenticated) {
-    return null; // Mostra um estado vazio enquanto redireciona
-  }
-
   useEffect(() => {
+    if (!isAuthenticated) {
+      // Aguarda redirecionamento antes de renderizar
+      return;
+    }
+
     const fetchTeams = async () => {
       const result = await teamService.getTeams();
       if (result.success) {
@@ -22,7 +23,11 @@ const TeamsPage: React.FC = () => {
       }
     };
     fetchTeams();
-  }, []);
+  }, [isAuthenticated]);
+
+  if (!isAuthenticated) {
+    return null; // Aguarda redirecionamento do `useRequireAuth`
+  }
 
   return (
     <div className="p-6">

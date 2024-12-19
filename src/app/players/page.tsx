@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { playerService } from '@/services/playerService';
 import { useRequireAuth } from '@/hooks/useRequireAuth';
@@ -26,7 +25,7 @@ const PlayersPage: React.FC = () => {
   }, [isAuthenticated]);
 
   if (!isAuthenticated) {
-    return null; // Aguarda redirecionamento do `useRequireAuth`
+    return null;
   }
 
   return (

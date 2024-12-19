@@ -33,4 +33,20 @@ export const playerService = {
       return { success: false, message: 'An error occurred while creating a player.' };
     }
   },
+
+  async getPlayerProfile(id: string) {
+    try {
+      const response = await fetch(`${API_URL}/Player/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      
+      const result = await response.json();
+
+      return response.ok
+        ? { success: true, data: result.data }
+        : { success: false, message: result.message };
+    } catch (error) {
+      return { success: false, message: 'An error occurred while fetching the player profile.' };
+    }
+  },
 };
